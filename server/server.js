@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors"; // Corrected import statement
 import connectDB from "./configs/mongodb.js";
+import userRouter from "./routes/userRoutes.js";
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -12,6 +13,7 @@ app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("API Working");
+app.use('/api/user',userRouter)
 });
 
 app.listen(PORT, () => {
