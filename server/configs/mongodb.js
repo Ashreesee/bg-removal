@@ -1,19 +1,19 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const connectDB = async () => {
   try {
-    // Establish connection
-    const conn = await mongoose.connect(`${process.env.MONGODB_URI}/bg-removal`, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    await mongoose.connect(process.env.MONGODB_URI, {
+      // Remove deprecated options
+      // useNewUrlParser: true,  // No longer needed
+      // useUnifiedTopology: true, // No longer needed
     });
-
-    // Log successful connection
-    console.log(`Database Connected: ${conn.connection.host}`);
+    console.log("MongoDB Connected");
   } catch (error) {
-    // Log errors and exit the process
-    console.error(`Error: ${error.message}`);
-    process.exit(1); // Exit with failure
+    console.error("Error connecting to MongoDB", error.message);
+    process.exit(1);
   }
 };
 
